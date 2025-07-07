@@ -1,11 +1,949 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>My GitHub Page</title>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maulik Bhalani - Frontend Developer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!-- Devicons for technology icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <style>
+        /* Define CSS Variables for Theming */
+        :root {
+            --color-bg-primary: #f9fafb;
+            --color-bg-secondary: #ffffff;
+            --color-bg-tertiary: #f3f4f6;
+            --color-text-primary: #1f2937;
+            --color-text-secondary: #4b5563;
+            --color-text-muted: #6b7280;
+            --color-border-default: #e5e7eb;
+            --color-accent-blue: #2563eb;
+            --color-accent-purple: #8b5cf6;
+
+            --nav-bg: #ffffff;
+            --nav-text: #4b5563;
+            --nav-hover-bg: #f3f4f6;
+            --nav-link-hover-text: #4f46e5;
+            --nav-link-active-text: #4f46e5;
+
+            --home-from: #3b82f6;
+            --home-to: #8b5cf6;
+            --home-btn-bg: #ffffff;
+            --home-btn-text: #2563eb;
+
+            --card-bg: #f9fafb;
+
+            --tag-blue-bg: #dbeafe;
+            --tag-blue-text: #1e40af;
+            --tag-green-bg: #dcfce7;
+            --tag-green-text: #166534;
+            --tag-purple-bg: #eedeef;
+            --tag-purple-text: #6b21a8;
+            --tag-yellow-bg: #fefce8;
+            --tag-yellow-text: #b45309;
+            --tag-red-bg: #fee2e2;
+            --tag-red-text: #991b1b;
+            --mobile-nav-link-active-bg: #e0e7ff;
+
+            --mobile-nav-link-active-text: #4338ca;
+            --mobile-nav-link-hover-bg: #e0e7ff;
+            --mobile-nav-link-hover-text: #4338ca;
+
+            --footer-bg: #1f2937;
+            --footer-text: #9ca3af;
+        }
+
+        /* Dark Mode Overrides */
+        body[data-theme="dark"] {
+            --color-bg-primary: #111827;
+            --color-bg-secondary: #1f2937;
+            --color-bg-tertiary: #1f2937;
+            --color-text-primary: #f3f4f6;
+            --color-text-secondary: #d1d5db;
+            --color-text-muted: #9ca3af;
+            --color-border-default: #374151;
+            --color-accent-blue: #60a5fa;
+            --color-accent-purple: #a78bfa;
+
+            --nav-bg: #1f2937;
+            --nav-text: #d1d5db;
+            --nav-hover-bg: #374151;
+            --nav-link-hover-text: #818cf8;
+            --nav-link-active-text: #818cf8;
+
+            --home-from: #1e3a8a;
+            --home-to: #4c1d95;
+            --home-btn-bg: #1f2937;
+            --home-btn-text: #60a5fa;
+
+            --card-bg: #111827;
+
+            --tag-blue-bg: #1e3a8a;
+            --tag-blue-text: #93c5fd;
+            --tag-green-bg: #166534;
+            --tag-green-text: #6ee7b7;
+            --tag-purple-bg: #4c0576;
+            --tag-purple-text: #d8b4fe;
+            --tag-yellow-bg: #78350f;
+            --tag-yellow-text: #fcd34d;
+            --tag-red-bg: #7f1d1d;
+            --tag-red-text: #fca5a5;
+
+            --mobile-nav-link-active-bg: #3730a3;
+            --mobile-nav-link-active-text: #a5b4fc;
+            --mobile-nav-link-hover-bg: #3730a3;
+            --mobile-nav-link-hover-text: #a5b4fc;
+
+            --footer-bg: #030712;
+            --footer-text: #6b7280;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: "Inter", sans-serif;
+            cursor: none;
+
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            /* Default text color for body */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transition for theme change */
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #6366f1;
+
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out,
+                border-color 0.3s ease-out, background-color 0.3s ease-out;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        /* Cursor color when on a dark background (like Home section) */
+        #custom-cursor.cursor-light {
+            border-color: #ffffff;
+        }
+
+        /* Cursor hover effect */
+        #custom-cursor.hovered {
+            transform: translate(-50%, -50%) scale(0.7);
+
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            opacity: 0.8;
+        }
+
+        /* Hide custom cursor on small screens */
+        @media (max-width: 767px) {
+            #custom-cursor {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+                /* Show default cursor on small screens */
+            }
+        }
+
+        /* Section Title Underline Effect */
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 6rem;
+            /* w-24 */
+            height: 0.25rem;
+            /* h-1 */
+            background-color: #3b82f6;
+            /* bg-blue-500 */
+            border-radius: 9999px;
+            /* rounded-full */
+        }
+
+        /* Keyframe animations */
+        @keyframes fadeInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInFromBottom 0.6s ease-out forwards;
+            opacity: 0;
+            /* Start invisible */
+        }
+
+        .animate-fade-in-up.delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-fade-in-up.delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        /* Mobile navigation specific styles */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Smoother cubic-bezier transition */
+            transform: translateX(100%);
+
+            background-color: var(--color-bg-tertiary);
+            width: 100%;
+            max-width: 280px;
+            box-sizing: border-box;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Applying CSS Variables to elements */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body[data-theme="dark"] nav {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        nav .text-blue-600 {
+            color: var(--color-accent-blue);
+        }
+
+        nav #theme-toggle,
+        nav #mobile-menu-button {
+            color: var(--nav-text);
+        }
+
+        nav #theme-toggle:hover,
+        nav #mobile-menu-button:hover {
+            background-color: var(--nav-hover-bg);
+        }
+
+        /* Desktop Nav Links */
+        nav .nav-link {
+            /* General styling for all nav links */
+            color: var(--nav-text);
+            /* Default color, gray-700 light, gray-300 dark */
+            transition: color 0.3s ease, background-color 0.3s ease;
+            /* Smooth transition */
+        }
+
+        nav .nav-link:hover {
+            /* Hover for non-active desktop links */
+            color: var(--nav-link-hover-text);
+            /* Indigo in light, lighter indigo in dark */
+        }
+
+        nav .nav-link.active {
+            /* New class for active desktop link */
+            color: var(--nav-link-active-text);
+            font-weight: 600;
+            /* semibold */
+        }
+
+        /* Home Section */
+        #home {
+            background-image: linear-gradient(to right,
+                    var(--home-from),
+                    var(--home-to));
+        }
+
+        #home .text-yellow-300 {
+            color: #fde047;
+            /* yellow-300 remains constant */
+        }
+
+        #home a.px-8.py-4 {
+            /* View My Work Button */
+            background-color: var(--home-btn-bg);
+            color: var(--home-btn-text);
+        }
+
+        /* Section Backgrounds */
+        #about,
+        #projects {
+            background-color: var(--color-bg-secondary);
+        }
+
+        #skills,
+        #contact {
+            background-color: var(--color-bg-primary);
+        }
+
+        .section-title {
+            color: var(--color-text-primary);
+        }
+
+        /* About Section - Text color now controlled by CSS variables */
+        #about p {
+            color: var(--color-text-secondary);
+        }
+
+        /* Skill Items & Project Cards */
+        .flex.flex-col.items-center.p-4.bg-white,
+        /* Skills item */
+        .bg-gray-50.rounded-lg.shadow-md.overflow-hidden
+
+        /* Project card */
+            {
+            background-color: var(--color-bg-secondary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* default shadow */
+        }
+
+        body[data-theme="dark"] .flex.flex-col.items-center.p-4.bg-white,
+        body[data-theme="dark"] .bg-gray-50.rounded-lg.shadow-md.overflow-hidden {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            /* darker shadow */
+        }
+
+        /* Skill names - text color now controlled by CSS variables */
+        #skills .flex.flex-col.items-center span {
+            color: var(--color-text-primary);
+        }
+
+        /* Project Cards content - text colors now controlled by CSS variables */
+        .bg-gray-50.rounded-lg h3 {
+            /* project title */
+            color: var(--color-text-primary);
+        }
+
+        .bg-gray-50.rounded-lg p {
+            /* project description */
+            color: var(--color-text-secondary);
+        }
+
+        /* Project Tech Tags */
+        .tag-blue {
+            background-color: var(--tag-blue-bg);
+            color: var(--tag-blue-text);
+        }
+
+        .tag-green {
+            background-color: var(--tag-green-bg);
+            color: var(--tag-green-text);
+        }
+
+        .tag-purple {
+            background-color: var(--tag-purple-bg);
+            color: var(--tag-purple-text);
+        }
+
+        .tag-yellow {
+            background-color: var(--tag-yellow-bg);
+            color: var(--tag-yellow-text);
+        }
+
+        .tag-red {
+            background-color: var(--tag-red-bg);
+            color: var(--tag-red-text);
+        }
+
+        /* Project Links */
+        .flex.justify-end.space-x-4 a.text-blue-600 {
+            /* Live Demo */
+            color: var(--color-accent-blue);
+        }
+
+        .flex.justify-end.space-x-4 a.text-gray-700 {
+            /* GitHub */
+            color: var(--color-text-secondary);
+        }
+
+        .flex.justify-end.space-x-4 a.text-gray-700:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* Contact Section */
+        #contact p {
+            color: var(--color-text-secondary);
+        }
+
+        #contact a.bg-gray-800 {
+            /* GitHub button */
+            background-color: var(--footer-bg);
+            /* Use footer bg for consistency in dark gray buttons */
+            color: #ffffff;
+        }
+
+        #contact a.bg-gray-800:hover {
+            background-color: var(--color-bg-primary);
+            /* Slightly lighter for hover in dark mode */
+        }
+
+        #contact a.bg-blue-700 {
+            /* LinkedIn button */
+            background-color: #1d4ed8;
+            /* blue-700 remains constant */
+        }
+
+        #contact a.bg-blue-700:hover {
+            background-color: #1e40af;
+            /* blue-800 hover */
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu button#close-mobile-menu {
+            color: var(--color-text-secondary);
+        }
+
+        #mobile-menu button#close-mobile-menu:hover {
+            background-color: var(--nav-hover-bg);
+        }
+
+        #mobile-menu .border-gray-200 {
+            /* border line */
+            border-color: var(--color-border-default);
+        }
+
+        /* Mobile Nav Links */
+        #mobile-menu ul li a {
+            /* General styling for all mobile links */
+            color: var(--color-text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transition */
+        }
+
+        #mobile-menu ul li a.mobile-nav-link-hover:hover {
+            background-color: var(--mobile-nav-link-hover-bg);
+            color: var(--mobile-nav-link-hover-text);
+        }
+
+        #mobile-menu ul li a.active {
+            /* New class for active mobile link */
+            background-color: var(--mobile-nav-link-active-bg);
+            color: var(--mobile-nav-link-active-text);
+            font-weight: 600;
+            /* semibold */
+        }
+
+        #mobile-menu .text-gray-500 {
+            /* mobile footer text */
+            color: var(--color-text-muted);
+        }
+    </style>
 </head>
-<body>
-  <h1>Welcome to My GitHub Page</h1>
-  <p>Built with 💖 using GitHub Pages!</p>
+
+<body data-theme="light" class="min-h-screen relative">
+    <!-- Custom Cursor Element -->
+    <div id="custom-cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full shadow-md z-40">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">Maulik Bhalani</div>
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex space-x-6">
+                <li>
+                    <a href="#home" class="nav-link nav-link-hover flex items-center space-x-2" data-section="home">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-home">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="nav-link nav-link-hover flex items-center space-x-2" data-section="about">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-user">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#skills" class="nav-link nav-link-hover flex items-center space-x-2" data-section="skills">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-code">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                        <span>Skills</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#projects" class="nav-link nav-link-hover flex items-center space-x-2"
+                        data-section="projects">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-folder">
+                            <path
+                                d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 8 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h16Z" />
+                        </svg>
+                        <span>Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="nav-link nav-link-hover flex items-center space-x-2"
+                        data-section="contact">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-mail">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="flex items-center space-x-4">
+                <!-- Light/Dark Mode Toggle Button -->
+                <button id="theme-toggle"
+                    class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.383 18.325l-.707.707M18.325 5.383l.707-.707M5.383 5.383l.707-.707M12 7a5 5 0 110 10 5 5 0 010-10z">
+                        </path>
+                    </svg>
+                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+                <!-- Mobile Hamburger Menu Button -->
+                <button id="mobile-menu-button"
+                    class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-menu">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay - Enhanced Styling -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-xs shadow-xl z-50 transform translate-x-full md:hidden flex flex-col">
+        <div class="flex justify-end p-4 border-b border-gray-200">
+            <button id="close-mobile-menu"
+                class="p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col items-start space-y-2 py-8 px-4 flex-grow">
+            <li class="w-full">
+                <a href="#home"
+                    class="mobile-nav-link mobile-nav-link-hover flex items-center w-full px-4 py-3 rounded-md space-x-3 text-base sm:text-lg font-medium"
+                    data-section="home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-home">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="w-full">
+                <a href="#about"
+                    class="mobile-nav-link mobile-nav-link-hover flex items-center w-full px-4 py-3 rounded-md space-x-3 text-base sm:text-lg font-medium"
+                    data-section="about">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-user">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="w-full">
+                <a href="#skills"
+                    class="mobile-nav-link mobile-nav-link-hover flex items-center w-full px-4 py-3 rounded-md space-x-3 text-base sm:text-lg font-medium"
+                    data-section="skills">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-code">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    <span>Skills</span>
+                </a>
+            </li>
+            <li class="w-full">
+                <a href="#projects"
+                    class="mobile-nav-link mobile-nav-link-hover flex items-center w-full px-4 py-3 rounded-md space-x-3 text-base sm:text-lg font-medium"
+                    data-section="projects">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-folder">
+                        <path
+                            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 8 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h16Z" />
+                    </svg>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="w-full">
+                <a href="#contact"
+                    class="mobile-nav-link mobile-nav-link-hover flex items-center w-full px-4 py-3 rounded-md space-x-3 text-base sm:text-lg font-medium"
+                    data-section="contact">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-mail">
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+        <div class="p-4 border-b border-gray-200 text-center text-sm text-gray-500">
+            &copy; <span id="current-year-mobile"></span> Maulik Bhalani.
+        </div>
+    </div>
+
+    <main class="pt-20">
+        <!-- Padding for fixed nav -->
+        <!-- Home Section -->
+        <section id="home"
+            class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20 px-4">
+            <div class="text-center max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4 animate-fade-in-up">
+                    Hi, I'm <span class="text-yellow-300">Maulik Bhalani</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 animate-fade-in-up delay-200">
+                    A passionate
+                    <span class="font-semibold">Frontend Developer</span> building
+                    engaging and accessible web experiences.
+                </p>
+                <!-- <a href="#projects" -->
+                <a
+                    class="px-8 py-4 bg-white text-blue-600 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out flex items-center justify-center mx-auto w-fit animate-fade-in-up delay-400">
+                    View My Work
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-arrow-right ml-2">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-20 px-4 bg-white">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="section-title text-3xl sm:text-4xl font-bold mb-8 relative pb-4">
+                    About Me
+                </h2>
+                <div class="grid md:grid-cols-1 gap-12 items-center">
+                    <div>
+                        <p class="text-base sm:text-lg leading-relaxed mb-4">
+                            Hello! I'm a dedicated frontend developer with a keen eye for
+                            detail and a passion for creating intuitive and beautiful user
+                            interfaces. My journey in web development began with a
+                            fascination for how design translates into interactive
+                            experiences.
+                        </p>
+                        <p class="text-base sm:text-lg leading-relaxed mb-4">
+                            I specialize in building responsive and performant web
+                            applications using modern JavaScript frameworks. I thrive in
+                            collaborative environments and am always eager to learn new
+                            technologies and best practices to deliver high-quality code.
+                        </p>
+                        <p class="text-base sm:text-lg leading-relaxed">
+                            When I'm not coding, you can find me exploring new design
+                            trends, contributing to open-source projects, or enjoying a good
+                            book.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 px-4 bg-gray-50">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="section-title text-3xl sm:text-4xl font-bold mb-8 relative pb-4">
+                    Skills & Technologies
+                </h2>
+                <!-- Adjusted grid for responsiveness: 2 cols on mobile, 3 on sm, 4 on md, 5 on lg -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    <!-- Frontend -->
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-react-original colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">React</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-javascript-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">JavaScript</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-html5-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">HTML5</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-css3-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">CSS3</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-tailwindcss-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">Tailwind CSS</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-redux-original colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">Redux</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-typescript-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">TypeScript</span>
+                    </div>
+                    <!-- Backend (for demonstration, as Node is mentioned) -->
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-nodejs-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">Node.js</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-express-original colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">Express.js</span>
+                    </div>
+                    <!-- Tools -->
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-git-plain colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">Git</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-github-original colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">GitHub</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <i
+                            class="devicon-npm-original-wordmark colored text-5xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-base sm:text-lg font-medium">NPM</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <!-- <section id="projects" class="py-20 px-4 bg-white">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="section-title text-3xl sm:text-4xl font-bold mb-8 relative pb-4">
+                    My Projects
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <img src="https://placehold.co/600x400/2563eb/ffffff?text=Project+1+Image" alt="Project 1"
+                            class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Load+Error';" />
+                        <div class="p-6">
+                            <h3 class="text-xl sm:text-2xl font-semibold mb-2">
+                                E-commerce Dashboard
+                            </h3>
+                            <p class="text-base mb-4">
+                                A responsive dashboard for managing e-commerce sales, orders,
+                                and customer data. Built with React and Redux.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tag-blue text-xs font-medium px-2.5 py-0.5 rounded-full">React</span>
+                                <span class="tag-green text-xs font-medium px-2.5 py-0.5 rounded-full">Redux</span>
+                                <span class="tag-purple text-xs font-medium px-2.5 py-0.5 rounded-full">Tailwind
+                                    CSS</span>
+                            </div>
+                            <div class="flex justify-end space-x-4">
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-blue-600 hover:text-blue-800 transition-colors duration-300 flex items-center">
+                                    Live Demo
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-external-link ml-1">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" x2="21" y1="14" y2="3" />
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-gray-700 hover:text-gray-900 transition-colors duration-300 flex items-center">
+                                    GitHub
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-github ml-1">
+                                        <path
+                                            d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4-2.2 4-4a5 5 0 0 0-1.5-3.5c.3-1 .3-2.3 0-3.2A6.5 6.5 0 0 0 12 5.5c-1.8 0-3.5.7-4.7 2.2-.3.9-.3 2.2 0 3.2A5 5 0 0 0 6 12c0 1.8.5 4 4 4.5a4.8 4.8 0 0 0-1 3.2v4" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div
+                        class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Project+2+Image" alt="Project 2"
+                            class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Load+Error';" />
+                        <div class="p-6">
+                            <h3 class="text-xl sm:text-2xl font-semibold mb-2">
+                                Task Management App
+                            </h3>
+                            <p class="text-base mb-4">
+                                A full-stack task management application with user
+                                authentication and real-time updates.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tag-blue text-xs font-medium px-2.5 py-0.5 rounded-full">React</span>
+                                <span class="tag-yellow text-xs font-medium px-2.5 py-0.5 rounded-full">Node.js</span>
+                                <span class="tag-red text-xs font-medium px-2.5 py-0.5 rounded-full">MongoDB</span>
+                            </div>
+                            <div class="flex justify-end space-x-4">
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-blue-600 hover:text-blue-800 transition-colors duration-300 flex items-center">
+                                    Live Demo
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-external-link ml-1">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" x2="21" y1="14" y2="3" />
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-gray-700 hover:text-gray-900 transition-colors duration-300 flex items-center">
+                                    GitHub
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-github ml-1">
+                                        <path
+                                            d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4-2.2 4-4a5 5 0 0 0-1.5-3.5c.3-1 .3-2.3 0-3.2A6.5 6.5 0 0 0 12 5.5c-1.8 0-3.5.7-4.7 2.2-.3.9-.3 2.2 0 3.2A5 5 0 0 0 6 12c0 1.8.5 4 4 4.5a4.8 4.8 0 0 0-1 3.2v4" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4 bg-gray-50">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="section-title text-3xl sm:text-4xl font-bold mb-8 relative pb-4">
+                    Get In Touch
+                </h2>
+                <p class="text-base sm:text-lg text-center mb-8">
+                    I'm always open to new opportunities and collaborations. Feel free
+                    to reach out!
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <a href="mailto:maulikkumar.bhalani@gmail.com"
+                        class="flex items-center space-x-3 px-6 py-3 bg-blue-600 text-white rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-mail">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <span>Email Me</span>
+                    </a>
+                    <a href="https://github.com/MaulikBhalani" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center space-x-3 px-6 py-3 bg-gray-800 text-white rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-gray-900 transform hover:scale-105 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-github">
+                            <path
+                                d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4-2.2 4-4a5 5 0 0 0-1.5-3.5c.3-1 .3-2.3 0-3.2A6.5 6.5 0 0 0 12 5.5c-1.8 0-3.5.7-4.7 2.2-.3.9-.3 2.2 0 3.2A5 5 0 0 0 6 12c0 1.8.5 4 4 4.5a4.8 4.8 0 0 0-1 3.2v4" />
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center space-x-3 px-6 py-3 bg-blue-700 text-white rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-blue-800 transform hover:scale-105 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-linkedin">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                            <rect width="4" height="12" x="2" y="9" />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-800 text-center text-gray-400 text-sm">
+        <div class="container mx-auto px-4">
+            <p>
+                &copy; <span id="current-year"></span> Maulik Bhalani. All rights
+                reserved.
+            </p>
+            <p>Built with HTML, CSS (Tailwind CSS), and JavaScript.</p>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
 </body>
+
 </html>
